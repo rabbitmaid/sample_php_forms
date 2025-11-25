@@ -33,24 +33,41 @@ else {
 
     // save the data in the database
 
-    // sql query
-    $sql = "INSERT INTO users(name, email, gender, password, phone_number, address, date_of_birth, place_of_birth) VALUES( ? , ?, ?, ?, ?, ?, ?, ?)";
+    try{
 
-    $statement = $connection->prepare($sql);
+        // sql query
+        $sql = "INSERT INTO users(name, email, gender, password, phone_number, address, date_of_birth, place_of_birth) VALUES( ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    $statement->bind_param("ssssssss", $fullName, $emailAddress, $gender, $hashedPassword, $phoneNumber, $address, $dateOfBirth, $placeOfBirth);
+        $statement = $connection->prepare($sql);
 
-    $execution = $statement->execute();
+        $statement->bind_param("ssssssss", $fullName, $emailAddress, $gender, $hashedPassword, $phoneNumber, $address, $dateOfBirth, $placeOfBirth);
 
-    // check if execution was successful
-    if($execution) {
-        $_SESSION['success'] = "Record created";
-        redirect("./index.php");
+        $execution = $statement->execute();
+
+        // check if execution was successful
+        if($execution) {
+            $_SESSION['success'] = "Record created";
+            redirect("./index.php");
+        }
+        else {
+            $_SESSION['error'] = "Record not created";
+            redirect("./index.php");
+        }
+
     }
-    else {
-        $_SESSION['error'] = "Record not created";
-        redirect("./index.php");
+
+    catch(\Exception $e) {
+      
+        if($e->getCode() === 1062) {
+            $_SESSION['error'] = "The email address already exists";
+            redirect("./index.php");
+        }else {
+            $_SESSION['error'] = "Unexpected error please try again!";
+            redirect("./index.php");
+        }
     }
+
+    
 
 
 
