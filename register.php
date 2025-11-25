@@ -34,12 +34,16 @@ else {
     // save the data in the database
 
     // sql query
-    $sql = "INSERT INTO users(name, email, gender, password, phone_number, address, date_of_birth, place_of_birth) VALUES('$fullName', '$emailAddress', '$gender', '$hashedPassword', '$phoneNumber', '$address', '$dateOfBirth', '$placeOfBirth')";
+    $sql = "INSERT INTO users(name, email, gender, password, phone_number, address, date_of_birth, place_of_birth) VALUES( ? , ?, ?, ?, ?, ?, ?, ?)";
 
-    $result = $connection->query($sql); // execute the query
+    $statement = $connection->prepare($sql);
+
+    $statement->bind_param("ssssssss", $fullName, $emailAddress, $gender, $hashedPassword, $phoneNumber, $address, $dateOfBirth, $placeOfBirth);
+
+    $execution = $statement->execute();
 
     // check if execution was successful
-    if($result) {
+    if($execution) {
         $_SESSION['success'] = "Record created";
         redirect("./index.php");
     }
