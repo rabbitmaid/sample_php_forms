@@ -62,13 +62,11 @@ else {
             $_SESSION['error'] = "The email address already exists";
             redirect("./index.php");
         }else {
+
             $_SESSION['error'] = "Unexpected error please try again!";
             redirect("./index.php");
         }
     }
-
-    
-
 
 
 }
