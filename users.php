@@ -57,7 +57,9 @@
                 <td><?=  $user['email'] ?></td>
                 <td><?=  $user['phone_number'] ?></td>
                 <td><?=  $user['created_at'] ?></td>
-                <td></td>
+                <td>
+                    <a href="edit.php?id=<?= $user['id'] ?>">Edit</a>
+                </td>
             </tr>
 
             <?php endforeach ?>
