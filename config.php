@@ -4,5 +4,5 @@ return [
   "hostname" => "localhost",
   "username" => "root",
   "password" => "",
-  "database" => "phpforms" 
+  "database" => "phpforms"
 ]; 

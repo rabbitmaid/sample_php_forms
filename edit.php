@@ -41,7 +41,9 @@
 
     <h1>Update User Information</h1>
 
-    <form action="" method="POST">
+    <form action="update.php" method="POST">
+
+      <input type="hidden" name="userId" value="<?=  $userId ?>">
 
        <!-- Name -->
         <div>

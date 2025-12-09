@@ -1,3 +1,4 @@
+<?php session_start() ?>
 <?php
  
   require_once __DIR__ . "/database.php";
@@ -28,11 +29,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List of Users</title>
      <link rel="stylesheet" href="style.css">
+
+     <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@11.26.4/dist/sweetalert2.all.min.js "></script>
+    <link href=" https://cdn.jsdelivr.net/npm/sweetalert2@11.26.4/dist/sweetalert2.min.css " rel="stylesheet">
+
+     <script src="main.js" defer></script>
 </head>
 <body>
 
  
-<section class="table-container">   
+<section class="table-container"> 
+    
+    <?php require_once "./templates/notice.php" ?>
+
     <h1>All Users</h1>
 
     <table>
@@ -59,6 +68,11 @@
                 <td><?=  $user['created_at'] ?></td>
                 <td>
                     <a href="edit.php?id=<?= $user['id'] ?>">Edit</a>
+                  
+                    <form action="delete.php" class="delete-form" method="POST">
+                        <input type="hidden" name="userId" value="<?= $user['id'] ?>" />
+                        <button type="submit">Delete</button>
+                    </form>
                 </td>
             </tr>
 
