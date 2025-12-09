@@ -22,6 +22,9 @@
     if($result->num_rows == 1) {
         $user = $result->fetch_assoc();
     }
+    else {
+         redirect('users.php');
+    }
 ?>
 
 <!DOCTYPE html>
